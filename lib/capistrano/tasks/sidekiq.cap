@@ -76,7 +76,11 @@ namespace :sidekiq do
     args.push "--logfile #{fetch(:sidekiq_log)}" if fetch(:sidekiq_log)
     args.push "--require #{fetch(:sidekiq_require)}" if fetch(:sidekiq_require)
     args.push "--tag #{fetch(:sidekiq_tag)}" if fetch(:sidekiq_tag)
-    args.push fetch(:sidekiq_options) if fetch(:sidekiq_options)
+	if fetch(:sidekiq_options)
+		sidekiq_options = fetch(:sidekiq_options)
+		sidekiq_options = sidekiq_options[idx] if sidekiq_options.is_a? Array
+		args.push sidekiq_options
+	end
 
     if defined?(JRUBY_VERSION)
       args.push ">/dev/null 2>&1 &"
