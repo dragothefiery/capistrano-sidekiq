@@ -48,7 +48,9 @@ Capistrano::Configuration.instance.load do
       args.push "--pidfile #{pid_file}"
       args.push "--environment #{fetch(:sidekiq_env)}"
       args.push "--logfile #{fetch(:sidekiq_log)}" if fetch(:sidekiq_log)
-      args.push fetch(:sidekiq_options)
+      sidekiq_options = fetch(:sidekiq_options)
+      sidekiq_options = sidekiq_options[idx] if sidekiq_options.is_a? Array
+	  args.push sidekiq_options
 
       if defined?(JRUBY_VERSION)
         args.push '>/dev/null 2>&1 &'

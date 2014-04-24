@@ -2,6 +2,11 @@
 
 Sidekiq integration for Capistrano
 
+## Forked version
+
+The only difference from the original is that :sidekiq_options parameter now can be an array in order
+to pass different options to multiple sidekiq processes (:sidekiq_processes > 1)
+
 ## Installation
 
 Add this line to your application's Gemfile:
